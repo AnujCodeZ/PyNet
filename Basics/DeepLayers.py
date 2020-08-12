@@ -7,7 +7,7 @@ class DeepNet:
 
         self.layers = layers
         self.parameters = {}
-        self.dparameters = {}
+        self.gradients = {}
         self.caches = []
 
         self.initialize()
@@ -67,8 +67,8 @@ class DeepNet:
             As['A'+str(i+1)] = self.caches[i]
         
         dZL = As['A'+str(len(self.layers))] - Y
-        self.dparameters['W'+str(len(self.layers))] = np.dot(dZL, As['A'+str(len(self.layers))].T) / m
-        self.dparameters['b'+str(len(self.layers))] = np.sum(dZL, axis=1, keepdims=True) / m
+        self.gradients['W'+str(len(self.layers))] = np.dot(dZL, As['A'+str(len(self.layers))].T) / m
+        self.gradients['b'+str(len(self.layers))] = np.sum(dZL, axis=1, keepdims=True) / m
 
         dZ = dZL
 
@@ -77,16 +77,16 @@ class DeepNet:
             dZ_prev = dZ
 
             dZ = np.dot(np.dot(self.parameters['W'+str(i+2)], dZ_prev), [1 if As['A'+str(i+1)] > 0 else 0])
-            self.dparameters['W'+str(i+1)] = np.dot(dZ, As['A'+str(i)].T) / m
-            self.dparameters['b'+str(i+1)] = np.sum(dZ, axis=1, keepdims=True) / m
+            self.gradients['W'+str(i+1)] = np.dot(dZ, As['A'+str(i)].T) / m
+            self.gradients['b'+str(i+1)] = np.sum(dZ, axis=1, keepdims=True) / m
     
     # Update parameters
     def update_params(self, lr):
 
         for i in range(len(self.layers)):
 
-            self.parameters['W'+str(i+1)] -= lr * self.dparameters['W'+str(i+1)]
-            self.parameters['b'+str(i+1)] -= lr * self.dparameters['b'+str(i+1)]
+            self.parameters['W'+str(i+1)] -= lr * self.gradients['W'+str(i+1)]
+            self.parameters['b'+str(i+1)] -= lr * self.gradients['b'+str(i+1)]
     
     
     # Train

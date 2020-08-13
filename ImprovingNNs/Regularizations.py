@@ -11,7 +11,7 @@ class Regularizer(DeepNet):
     """
     def compute_cost_with_regularization(self, AL, Y, lambd=0.01):
         """Compute L2 regularized cost
-        For L1 just remove np.square()
+        For L1 change np.square(self.parameters) to self.parameters
 
         Args:
             AL (numpy.ndarray): Activations by forward pass.
@@ -32,7 +32,8 @@ class Regularizer(DeepNet):
         return cost
     
     def backward_with_regularization(self, X, Y, lambd=0.01):
-        """Calculates gradients with regularization.
+        """Calculates gradients with L2 regularization.
+        For L1 remove np.sum(self.parameters['W'+...]) terms.
 
         Args:
             X (numpy.ndarray): Features.

@@ -1,14 +1,14 @@
 import numpy as np
 from Utils import *
 
+""" L1 and L2 Regularization
+Used to overcome high variance or overfitting.
+"""
 class Regularizer(DeepNet):
     
     def __init__(self):
-        super().__init__()
+        super(DeepNet, self).__init__()
     
-    """ L1 and L2 Regularization
-    Used to overcome high variance or overfitting.
-    """
     def compute_cost_with_regularization(self, AL, Y, lambd=0.01):
         """Compute L2 regularized cost
         For L1 change np.square(self.parameters) to self.parameters
@@ -63,3 +63,41 @@ class Regularizer(DeepNet):
             self.gradients['W'+str(i+1)] = (np.dot(dZ, As['A'+str(i)].T) + 
                                             (lambd) * np.sum(self.parameters['W'+str(i+1)])) / m
             self.gradients['b'+str(i+1)] = np.sum(dZ, axis=1, keepdims=True) / m
+    
+""" Dropout
+Shut down few neurons to a probability"""
+class Dropout(DeepNet):
+    
+    def __init__(self, x, keep_prob=0.8):
+        """Apply dropout to x.
+
+        Args:
+            x (numpy.ndarray): Layer
+            keep_prob (float, optional): probability of keeping units. Defaults to 0.8.
+
+        Returns:
+            (x, d): Dropped layer and mask of dropping units
+        """
+        super(DeepNet, self).__init__()
+        self.keep_prob = keep_prob
+        d = np.random.randn(x.shape)
+        d = (d < keep_prob).astype(int)
+        x = np.multiply(x, d)
+        x = x / keep_prob
+        
+        return (x, d)
+    
+    def backward_with_dropout(self, dx, d):
+        """Apply dropout to backward of layer x.
+
+        Args:
+            dx (numpy.ndarray): backward of layer x.
+            d (numpy.ndarray): Layer of 0's and 1's to dropout.
+
+        Returns:
+            dx: Dropped backward layer.
+        """
+        dx = np.multiply(dx, d)
+        dx = dx / self.keep_prob 
+        
+        return dx

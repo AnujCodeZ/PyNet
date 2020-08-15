@@ -7,7 +7,7 @@ Used to overcome high variance or overfitting.
 class Regularizer(DeepNet):
     
     def __init__(self):
-        super(DeepNet, self).__init__()
+        super(Regularizer, self).__init__()
     
     def compute_cost_with_regularization(self, AL, Y, lambd=0.01):
         """Compute L2 regularized cost
@@ -78,7 +78,7 @@ class Dropout(DeepNet):
         Returns:
             (x, d): Dropped layer and mask of dropping units
         """
-        super(DeepNet, self).__init__()
+        super(Dropout, self).__init__()
         self.keep_prob = keep_prob
         d = np.random.randn(x.shape)
         d = (d < keep_prob).astype(int)

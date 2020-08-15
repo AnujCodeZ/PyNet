@@ -4,7 +4,7 @@ from Utils import DeepNet
 class GDWithMomentum(DeepNet):
     
     def __init__(self, beta=0.9):
-        super(DeepNet, self).__init__()
+        super(GDWithMomentum, self).__init__()
         self.beta = beta
         self.averages = {}
         self.init_averages()
@@ -31,7 +31,7 @@ class GDWithMomentum(DeepNet):
 class RMSProp(DeepNet):
     
     def __init__(self, beta=0.99):
-        super(DeepNet, self).__init__()
+        super(RMSProp, self).__init__()
         self.beta = beta
         self.averages = {}
         self.init_averages()
@@ -60,7 +60,7 @@ class RMSProp(DeepNet):
 class Adam(DeepNet):
     
     def __init__(self, beta1=0.9, beta2=0.99, epsilon=1e-9):
-        super(DeepNet, self).__init__()
+        super(Adam, self).__init__()
         self.beta1 = beta1
         self.beta2 = beta2
         self.epsilon = epsilon

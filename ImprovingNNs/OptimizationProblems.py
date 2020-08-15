@@ -4,7 +4,7 @@ from Utils import *
 class GradProblems(DeepNet):
 
     def __init__(self):
-        super().__init__()
+        super(GradProblems, self).__init__()
 
         self.he_initialization()
     

@@ -4,7 +4,7 @@ from Utils import DeepNet
 class SGD(DeepNet):
     
     def __init__(self):
-        super(DeepNet, self).__init__()
+        super(SGD, self).__init__()
     
     def train_with_sgd(self, X, Y, epochs, lr):
         m = X.shape[0]
@@ -31,7 +31,7 @@ class SGD(DeepNet):
 class MiniBGD(DeepNet):
     
     def __init__(self, batch_size):
-        super(DeepNet, self).__init__()
+        super(MiniBGD, self).__init__()
         self.batch_size = batch_size
     
     def generate_mini_batches(self, X, Y):

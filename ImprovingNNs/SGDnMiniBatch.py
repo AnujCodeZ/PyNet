@@ -79,3 +79,9 @@ class MiniBGD(DeepNet):
             print("Cost after {}th iteration: {:.3f}".format(e, loss))
             
         return cost
+
+def LRDecay(alpha=3e-3, decay_rate=1e-2, epoch):
+    
+    alpha = (1 / (1 + decay_rate*epoch)) * alpha
+    
+    return alpha

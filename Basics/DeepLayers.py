@@ -76,7 +76,7 @@ class DeepNet:
 
             dZ_prev = dZ
 
-            dZ = np.dot(np.dot(self.parameters['W'+str(i+2)], dZ_prev), [1 if As['A'+str(i+1)] > 0 else 0])
+            dZ = np.multiply(np.dot(self.parameters['W'+str(i+2)], dZ_prev), [1 if As['A'+str(i+1)] > 0 else 0])
             self.gradients['W'+str(i+1)] = np.dot(dZ, As['A'+str(i)].T) / m
             self.gradients['b'+str(i+1)] = np.sum(dZ, axis=1, keepdims=True) / m
     

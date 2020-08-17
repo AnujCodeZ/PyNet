@@ -24,4 +24,4 @@ class BatchNorm(DeepNet):
         m = self.gammas.shape[0]
         dz = np.multiply(np.dot(self.gammas, dz_prev), [1 if self.caches[layer_no-1] > 0 else 0])
         self.grad_gammas = np.dot(dz, self.caches[layer_no - 2]) / self.gammas.shape[0]
-        self.grad_betas = np.sum(dz, axis=1, keepdims=True)
+        self.grad_betas = np.sum(dz, axis=1, keepdims=True) / self.gammas.shape[0]

@@ -19,12 +19,12 @@ class Conv2D:
                            (0, 0)), mode='constant', constant_values=(0, 0))
         return x_pad
 
-    def conv_single(self, x_slice, w_channel):
+    def conv_single(self, x_slice, channel):
 
-        z = np.multiply(x_slice, self.w[:, :, :, w_channel])
+        z = np.multiply(x_slice, self.w[:, :, :, channel])
         z = np.sum(z)
 
-        return z + self.b.squeeze()
+        return z + self.b[:, :, :, channel].squeeze()
 
     def init_params(self, x):
 
@@ -43,7 +43,6 @@ class Conv2D:
         n_w = int((x.shape[1] + 2 * pad - self.kernel) / self.stride) + 1
         n_h = int((x.shape[2] + 2 * pad - self.kernel) / self.stride) + 1
         out = np.zeros((x.shape[0], n_h, n_w, self.num_filters))
-        
         
         x_pad = self.zero_pad(x, self.pad)
         
@@ -85,5 +84,4 @@ class Conv2D:
                         self.dw += np.multiply(x_slice, d[i, h, w, c])
                         self.db += d[i, h, w, c]
             dx[i,:,:,:] = dx_i
-            
         return dx

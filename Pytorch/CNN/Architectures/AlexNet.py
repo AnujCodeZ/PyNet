@@ -17,7 +17,6 @@ trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
 
 class AlexNet(nn.Module):
-    trainloader
     def __init__(self):
         super(AlexNet, self).__init__()
         self.layer1 = nn.Sequential(

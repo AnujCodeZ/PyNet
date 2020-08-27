@@ -44,11 +44,14 @@ class AlexNet(nn.Module):
     def forward(self, x):
         x = F.relu(self.layer1(x))
         x = F.relu(self.layer2(x))
+        x = F.dropout(x)
         x = F.relu(self.layer3(x))
         x = F.relu(self.layer4(x))
+        x = F.dropout(x)
         x = F.relu(self.layer5(x))
         x = x.view(x.size(0), -1)
         x = F.relu(self.layer6(x))
+        x = F.dropout(x)
         x = F.relu(self.layer7(x))
         x = self.layer8(x)
         return x

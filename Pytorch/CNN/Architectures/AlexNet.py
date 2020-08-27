@@ -55,12 +55,16 @@ class AlexNet(nn.Module):
         x = self.layer8(x)
         return x
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = AlexNet()
+model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 for e in range(10):
     for images, labels in trainloader:
+        
+        images, labels = images.to(device), labels.to(device)
         
         outputs = model(images)
         
@@ -77,6 +81,7 @@ with torch.no_grad():
     correct = 0
     total = 0
     for images, labels in testloader:
+        images, labels = images.to(device), labels.to(device)
         outputs = model(images)
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)

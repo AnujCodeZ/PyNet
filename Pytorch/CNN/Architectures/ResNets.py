@@ -73,13 +73,14 @@ class ResBlock(nn.Module):
         x += res
         return self.relu(x)
 
+# ResNets
 class ResNet(nn.Module):
     
     def __init__(self, num_residuals, layer_channels, num_classes):
         super(ResNet, self).__init__()
         self.conv = nn.Sequential(
             nn.Conv2d(3, layer_channels[0], 7, 2, 3),
-            nn.BatchNorm2d(64),
+            nn.BatchNorm2d(layer_channels[0]),
             nn.ReLU(),
             nn.MaxPool2d(3, 2, 1)
         )
@@ -105,7 +106,8 @@ class ResNet(nn.Module):
         x = torch.flatten(x, 1)
         x = self.fc(x)
         return x
-     
+
+# Model architecture    
 num_residuals = [2, 2, 2, 2]
 layer_channels = [64, 128, 256, 512]
 num_classes = 10

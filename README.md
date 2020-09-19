@@ -20,6 +20,7 @@ Implementation of Basic Neural Networks, Deep Learning algorithms and architecht
 9. [Convolution operation](https://github.com/AnujCodeZ/PyNet/blob/master/CNN/Conv.py)
 10. [Pooling](https://github.com/AnujCodeZ/PyNet/blob/master/CNN/Pool.py)
 11. [RNN](https://github.com/AnujCodeZ/PyNet/blob/master/RNN/RNN.py)
+12. [GRU](https://github.com/AnujCodeZ/PyNet/blob/master/RNN/GRU.py)
 
 ## Resources:
 1. [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning)
